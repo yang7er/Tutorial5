@@ -1,0 +1,37 @@
+---
+title: "Learning to rebase"
+author: "sjy"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+# Libraries
+library(tidyverse)
+library(COVID19)
+```
+
+```{r cache=TRUE, message=FALSE}
+covid_us <- covid19("USA", level = 2)
+```
+
+```{r warning=FALSE}
+head(covid_us)
+ggplot(covid_us, aes(x = date , y = confirmed)) +
+geom_line() +
+facet_wrap(~id)
+```
+
+
+```{r}
+
+covid_us %>% 
+  dplyr::filter(id %in% unique(covid_us$id)[1:5]) %>% 
+  ggplot(aes(x = date, y = confirmed)) + 
+  geom_line() + 
+  facet_wrap(~id)
+```
+
+
